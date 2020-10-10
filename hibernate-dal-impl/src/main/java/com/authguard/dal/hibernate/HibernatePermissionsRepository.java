@@ -31,13 +31,13 @@ public class HibernatePermissionsRepository extends AbstractHibernateRepository<
 
     @Override
     public CompletableFuture<Collection<PermissionDO>> getAll() {
-        return QueryExecutor.getAList(session -> session.createNamedQuery(GET_BY_GROUP_AND_NAME, PermissionDO.class))
+        return QueryExecutor.getAList(session -> session.createNamedQuery(GET_ALL, PermissionDO.class))
                 .thenApply(Function.identity());
     }
 
     @Override
     public CompletableFuture<Collection<PermissionDO>> getAllForGroup(final String group) {
-        return QueryExecutor.getAList(session -> session.createNamedQuery(GET_BY_GROUP_AND_NAME, PermissionDO.class)
+        return QueryExecutor.getAList(session -> session.createNamedQuery(GET_BY_GROUP, PermissionDO.class)
                 .setParameter(GROUP_FIELD, group))
                 .thenApply(Function.identity());
     }

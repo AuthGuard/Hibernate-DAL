@@ -14,7 +14,7 @@ public class HibernateAppsRepository extends AbstractHibernateRepository<AppDO>
     private static final String GET_BY_ACCOUNT_ID = "apps.getByAccountId";
 
     private static final String EXTERNAL_ID_FIELD = "externalId";
-    private static final String ACCOUNT_ID_FIELD = "accountId";
+    private static final String ACCOUNT_ID_FIELD = "parentAccountId";
 
     public HibernateAppsRepository() {
         super(AppDO.class);

@@ -12,16 +12,16 @@ public abstract class AbstractHibernateRepository<T> {
         this.entityType = entityType;
     }
 
-    public CompletableFuture<T> save(final T credentialsDO) {
-        return QueryExecutor.persistAndReturn(credentialsDO);
+    public CompletableFuture<T> save(final T entity) {
+        return QueryExecutor.persistAndReturn(entity);
     }
     
     public CompletableFuture<Optional<T>> getById(final String id) {
         return QueryExecutor.getById(id, entityType);
     }
 
-    public CompletableFuture<Optional<T>> update(final T credentialsDO) {
-        return QueryExecutor.updateAndReturn(credentialsDO);
+    public CompletableFuture<Optional<T>> update(final T entity) {
+        return QueryExecutor.updateAndReturn(entity);
     }
 
     public CompletableFuture<Optional<T>> delete(final String id) {

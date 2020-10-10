@@ -71,27 +71,13 @@ public class QueryExecutor {
         });
     }
 
-    static CompletableFuture<Void> doInNewTransaction(final Consumer<Session> consumer, final Object entity) {
-        return CompletableFuture.runAsync(() -> {
-            final Session session = SessionProvider.newSession();
-
-            session.beginTransaction();
-
-            consumer.accept(session);
-
-            session.getTransaction().commit();
-            session.evict(entity);
-            session.close();
-        });
-    }
-
-    static <T> CompletableFuture<T> inNewTransaction(final Function<Session, T> consumer) {
+    static <T> CompletableFuture<T> inNewTransaction(final Function<Session, T> function) {
         return CompletableFuture.supplyAsync(() -> {
             final Session session = SessionProvider.newSession();
 
             session.beginTransaction();
 
-            final T entity = consumer.apply(session);
+            final T entity = function.apply(session);
 
             session.getTransaction().commit();
             session.close();
