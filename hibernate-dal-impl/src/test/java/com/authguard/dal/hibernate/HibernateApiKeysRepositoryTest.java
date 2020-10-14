@@ -1,18 +1,15 @@
 package com.authguard.dal.hibernate;
 
 import com.authguard.dal.model.ApiKeyDO;
-import com.authguard.dal.model.AppDO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class HibernateApiKeysRepositoryTest {
@@ -51,6 +48,23 @@ class HibernateApiKeysRepositoryTest {
 
         final ApiKeyDO persisted = repository.save(apiKey).join();
         final Collection<ApiKeyDO> retrieved = repository.getByAppId(appId).join();
+
+        assertThat(retrieved).contains(persisted);
+    }
+
+    @Test
+    void getByKey() {
+        final String id = UUID.randomUUID().toString();
+        final String key = "getByKey";
+
+        final ApiKeyDO apiKey = ApiKeyDO.builder()
+                .id(id)
+                .appId("get-by-key-app")
+                .key(key)
+                .build();
+
+        final ApiKeyDO persisted = repository.save(apiKey).join();
+        final Optional<ApiKeyDO> retrieved = repository.getByKey(key).join();
 
         assertThat(retrieved).contains(persisted);
     }
