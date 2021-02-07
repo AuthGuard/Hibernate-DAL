@@ -1,11 +1,11 @@
 package com.authguard.dal.hibernate.common;
 
-import com.authguard.dal.hibernate.common.QueryExecutor;
+import com.authguard.dal.repository.Repository;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-public abstract class AbstractHibernateRepository<T> {
+public abstract class AbstractHibernateRepository<T> implements Repository<T> {
     private final Class<T> entityType;
 
     protected AbstractHibernateRepository(final Class<T> entityType) {
