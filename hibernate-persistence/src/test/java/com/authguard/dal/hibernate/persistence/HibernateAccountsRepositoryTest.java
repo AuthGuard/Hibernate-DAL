@@ -1,6 +1,5 @@
 package com.authguard.dal.hibernate.persistence;
 
-import com.authguard.dal.hibernate.persistence.HibernateAccountsRepository;
 import com.authguard.dal.model.AccountDO;
 import com.authguard.dal.model.EmailDO;
 import org.junit.jupiter.api.BeforeAll;

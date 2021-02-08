@@ -1,6 +1,5 @@
 package com.authguard.dal.hibernate.persistence;
 
-import com.authguard.dal.hibernate.persistence.HibernateRolesRepository;
 import com.authguard.dal.model.RoleDO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

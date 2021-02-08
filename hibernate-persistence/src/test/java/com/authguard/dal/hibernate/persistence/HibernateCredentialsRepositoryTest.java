@@ -1,6 +1,5 @@
 package com.authguard.dal.hibernate.persistence;
 
-import com.authguard.dal.hibernate.persistence.HibernateCredentialsRepository;
 import com.authguard.dal.model.CredentialsDO;
 import com.authguard.dal.model.PasswordDO;
 import com.authguard.dal.model.UserIdentifierDO;

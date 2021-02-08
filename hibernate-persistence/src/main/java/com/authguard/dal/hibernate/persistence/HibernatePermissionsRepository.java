@@ -1,9 +1,10 @@
 package com.authguard.dal.hibernate.persistence;
 
 import com.authguard.dal.hibernate.common.AbstractHibernateRepository;
-import com.authguard.dal.persistence.PermissionsRepository;
+import com.authguard.dal.hibernate.common.CommonFields;
 import com.authguard.dal.hibernate.common.QueryExecutor;
 import com.authguard.dal.model.PermissionDO;
+import com.authguard.dal.persistence.PermissionsRepository;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import java.util.function.Function;
 
 public class HibernatePermissionsRepository extends AbstractHibernateRepository<PermissionDO>
         implements PermissionsRepository {
+    private static final String GET_BY_ID = "permissions.getById";
     private static final String GET_ALL = "permissions.getAll";
     private static final String GET_BY_GROUP_AND_NAME = "permissions.getByGroupAndName";
     private static final String GET_BY_GROUP = "permissions.getByGroup";
@@ -21,6 +23,14 @@ public class HibernatePermissionsRepository extends AbstractHibernateRepository<
 
     public HibernatePermissionsRepository() {
         super(PermissionDO.class);
+    }
+
+    @Override
+    public CompletableFuture<Optional<PermissionDO>> getById(final String id) {
+        return QueryExecutor
+                .getSingleResult(session -> session.createNamedQuery(GET_BY_ID, PermissionDO.class)
+                        .setParameter(CommonFields.ID, id))
+                .thenApply(Function.identity());
     }
 
     @Override

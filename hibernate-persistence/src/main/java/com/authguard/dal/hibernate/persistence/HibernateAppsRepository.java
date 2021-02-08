@@ -1,16 +1,19 @@
 package com.authguard.dal.hibernate.persistence;
 
 import com.authguard.dal.hibernate.common.AbstractHibernateRepository;
-import com.authguard.dal.persistence.ApplicationsRepository;
+import com.authguard.dal.hibernate.common.CommonFields;
 import com.authguard.dal.hibernate.common.QueryExecutor;
 import com.authguard.dal.model.AppDO;
+import com.authguard.dal.persistence.ApplicationsRepository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
 
 public class HibernateAppsRepository extends AbstractHibernateRepository<AppDO>
         implements ApplicationsRepository {
+    private static final String GET_BY_ID = "apps.getById";
     private static final String GET_BY_EXTERNAL_ID = "apps.getByExternalId";
     private static final String GET_BY_ACCOUNT_ID = "apps.getByAccountId";
 
@@ -19,6 +22,14 @@ public class HibernateAppsRepository extends AbstractHibernateRepository<AppDO>
 
     public HibernateAppsRepository() {
         super(AppDO.class);
+    }
+
+    @Override
+    public CompletableFuture<Optional<AppDO>> getById(final String id) {
+        return QueryExecutor
+                .getSingleResult(session -> session.createNamedQuery(GET_BY_ID, AppDO.class)
+                        .setParameter(CommonFields.ID, id))
+                .thenApply(Function.identity());
     }
 
     @Override

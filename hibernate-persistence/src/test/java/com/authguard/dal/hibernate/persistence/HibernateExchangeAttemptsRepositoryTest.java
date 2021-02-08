@@ -1,6 +1,5 @@
 package com.authguard.dal.hibernate.persistence;
 
-import com.authguard.dal.hibernate.persistence.HibernateExchangeAttemptsRepository;
 import com.authguard.dal.model.ExchangeAttemptDO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
